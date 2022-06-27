@@ -70,7 +70,7 @@ pipeline {
 						error("Received http status code 404. Please check if the Artefact ID that you have provided exists on the tenant.");
 					}
 					def disposition = cpiDownloadResponse.headers.toString();
-					def index=disposition.indexOf('filename')+903;
+					def index=disposition.indexOf('filename');
 					def lastindex=disposition.indexOf('.zip', index);
 					def filename=disposition.substring(index + 1, lastindex + 4);
 					def folder=env.GITFolder + '/' + filename.substring(0, filename.indexOf('.zip'));
