@@ -61,7 +61,7 @@ pipeline {
 						customHeaders: [[maskValue: false, name: 'Authorization', value: token]], 
 						ignoreSslErrors: false, 
 						responseHandle: 'LEAVE_OPEN', 
-						validResponseCodes: '100:399, 404',
+						validResponseCodes: '100:399, 404, 401',
 						timeout: 30,  
 						outputFile: tempfile,
 						url: 'https://' + env.CPIHost + '/api/v1/IntegrationDesigntimeArtifacts(Id=\''+ env.IntegrationFlowID + '\',Version=\'active\')/$value';
