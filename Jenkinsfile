@@ -64,7 +64,7 @@ pipeline {
 						validResponseCodes: '100:399, 404, 401',
 						timeout: 30,  
 						outputFile: tempfile,
-						url: 'https://' + env.CPIHost + '/api/v1/IntegrationDesigntimeArtifacts(Id=\''+ env.IntegrationFlowID + '\',Version=\'active\')/$value';
+						url:'https://' + 'f46f9be9trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com' + '/api/v1/IntegrationDesigntimeArtifacts(Id=\''+ env.IntegrationFlowID + '\',Version=\'active\')/$value';
 					if (cpiDownloadResponse.status == 404){
 						//invalid Flow ID
 						error("Received http status code 404. Please check if the Artefact ID that you have provided exists on the tenant.");
