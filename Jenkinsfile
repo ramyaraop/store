@@ -46,11 +46,7 @@ pipeline {
 						responseHandle: 'LEAVE_OPEN', 
 						timeout: 30, 
 						url: 'https://' + env.CPIOAuthHost + '/oauth/token?grant_type=client_credentials';
-					def jsonObjToken = readJSON text: getTokenResp.content
-					token = "Bearer " + jsonObjToken.access_token
-				   	} catch (Exception e) {
-						error("Requesting the oauth token for Cloud Integration failed:\n${e}")
-					}
+					
 					//delete the old flow content so that only the latest content gets stored
 					dir(env.GITFolder + '/' + env.IntegrationFlowID){
 						deleteDir();
