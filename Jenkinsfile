@@ -39,14 +39,17 @@ pipeline {
 					println("Request token");
 					def token;
 					try{
-					def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON', 
-						authentication: env.CPIOAuthCredentials, 
+	                                 	def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON', 
+						authentication: "${env.CPIOAuthCredentials}",
 						contentType: 'APPLICATION_JSON', 
 						httpMode: 'POST', 
 						responseHandle: 'LEAVE_OPEN', 
 						timeout: 30, 
 						url: 'https://' + env.CPIOAuthHost + '/oauth/token?grant_type=client_credentials';
-					
+					       def jsonObjToken = readJSON text: getTokenResp.content
+                                               def token = "Bearer " + jsonObjToken.access_token
+                                               env.token = token
+                                               getTokenResp.close();
 				   	} catch (Exception e) {
 						error("Requesting the oauth token for Cloud Integration failed:\n${e}")
 					}
@@ -58,10 +61,12 @@ pipeline {
 					println("Downloading artefact");
 					def tempfile = UUID.randomUUID().toString() + ".zip";
 					def cpiDownloadResponse = httpRequest acceptType: 'APPLICATION_ZIP', 
-						customHeaders: [[maskValue: false, name: 'Authorization', value: token]], 
+						customHeaders: [
+							[maskValue: false, name: 'Authorization', value: env.token]
+						], 
 						ignoreSslErrors: false, 
 						responseHandle: 'LEAVE_OPEN', 
-						validResponseCodes: '100:399, 404, 401',
+						validResponseCodes: '100:399, 404',
 						timeout: 30,  
 						outputFile: tempfile,
 						url:'https://' + 'f46f9be9trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com' + '/api/v1/IntegrationDesigntimeArtifacts(Id=\''+ env.IntegrationFlowID + '\',Version=\'active\')/$value';
