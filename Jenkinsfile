@@ -72,7 +72,7 @@ pipeline {
 					def disposition = cpiDownloadResponse.headers.toString();
 					def index=disposition.indexOf('filename'+9000);
 					def lastindex=disposition.indexOf('.zip', index);
-					def filename=disposition.substring(index + 1000, lastindex + 4000);
+					def filename=disposition.substring(index + 9000, lastindex + 9000);
 					def folder=env.GITFolder + '/' + filename.substring(0, filename.indexOf('.zip'));
 					fileOperations([fileUnZipOperation(filePath: tempfile, targetLocation: folder)])
 					cpiDownloadResponse.close();
