@@ -4,6 +4,8 @@ pipeline {
 	//Configure the following environment variables before executing the Jenkins Job
 	environment {
 		IntegrationFlowID = "test1"
+		GetEndpoint = true //If you don't need the endpoint or the artefact does not provide an endpoint, set the value to false
+                DeploymentCheckRetryCounter = 20 //multiply by 3 to get the maximum deployment time
 		CPIHost = "${env.CPI_HOST}"
 		CPIOAuthHost = "${env.CPI_OAUTH_HOST}"
 		CPIOAuthCredentials = "${env.CPI_OAUTH_CRED}"
