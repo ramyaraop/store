@@ -131,7 +131,27 @@ pipeline {
         	}
       	}
    
-		stage('Deploy integration flow and check for deployment success') {
+		 stage('Generate oauth bearer token') {
+      steps {
+        script {
+          //get oauth token for Cloud Integration
+          println("requesting oauth token");
+          def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON',
+            authentication: "${env.CPIOAuthCredentials}",
+            contentType: 'APPLICATION_JSON',
+            httpMode: 'POST',
+            responseHandle: 'LEAVE_OPEN',
+            timeout: 30,
+            url: 'https://' + env.CPIOAuthHost + '/oauth/token?grant_type=client_credentials';
+          def jsonObjToken = readJSON text: getTokenResp.content
+          def token = "Bearer " + jsonObjToken.access_token
+          env.token = token
+          getTokenResp.close();
+        }
+      }
+    }
+
+    stage('Deploy integration flow and check for deployment success') {
       steps {
         script {
           //deploy integration flow as specified in the configuration
