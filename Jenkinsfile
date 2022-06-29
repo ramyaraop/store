@@ -10,7 +10,7 @@ pipeline {
 		GITRepositoryURL   = "${env.GIT_REPOSITORY_URL}"
 		GITCredentials = "${env.GIT_CRED}"
 		GITBranch = "${env.GIT_BRANCH_NAME}"
-		GITComment = "Integration Artefacts update from CI/CD pipeline"
+		GITComment = "Integration Artifacts update from CI/CD pipeline"
 		GITFolder = "IntegrationArtifact"
 	}
 
