@@ -341,7 +341,7 @@
             <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
             <bpmn2:messageEventDefinition/>
         </bpmn2:endEvent>
-        <bpmn2:callActivity id="CallActivity_5" name="Store Header">
+        <bpmn2:callActivity id="CallActivity_5" name="Content Modifier 1">
             <bpmn2:extensionElements>
                 <ifl:property>
                     <key>bodyType</key>
@@ -395,7 +395,7 @@
 
 All time popular book by  Author ${header.Author} is ${header.Book_Name}.
 He is from ${header.Country}
-What is yours? 
+
 
 Mine is Tuesdays With Morrie</value>
                 </ifl:property>
